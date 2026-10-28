@@ -135,7 +135,7 @@ breakbreakTest passed
                       sbreak.hex                OK        PASS
 ```
 
-![Рис. 1 — результат запуска `make run_verilator TARGETS=riscv_isa`: выведено `breakbreak`, `1/1 tests passed`]([images/01_run_verilator_pass.jpg](https://github.com/oussamahassani2023/scr1/blob/lab_scr1_sim/images/01_run_verilator_pass.jpg?raw=true))
+![Рис. 1 — результат запуска `make run_verilator TARGETS=riscv_isa`: выведено `breakbreak`, `1/1 tests passed`](https://github.com/oussamahassani2023/scr1/blob/lab_scr1_sim/images/01_run_verilator_pass.jpg?raw=true)
 
 *Рис. 1 — результат моделирования: тест `sbreak` пройден, обработчик вывел `breakbreak`.*
 
