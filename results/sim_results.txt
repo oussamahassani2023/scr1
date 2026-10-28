@@ -1,9 +1,9 @@
 scr1_top_tb_ahb
 [0;34m---Test:                       sbreak.hex[0m
-[0;31mError: TIMEOUT                        sbreak.hex[0m
+breakbreak[0;32mTest passed[0m
 
 #--------------------------------------
-# Summary: 0/1 tests passed
+# Summary: 1/1 tests passed
 #--------------------------------------
 
 - /home/pc/scr1/scr1_clean/src/tb/scr1_top_tb_runtests.sv:199: Verilog $finish

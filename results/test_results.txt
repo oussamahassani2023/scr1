@@ -1,1 +1,1 @@
-                      sbreak.hex		OK	__FAIL
+                      sbreak.hex		OK	  PASS

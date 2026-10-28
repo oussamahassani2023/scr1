@@ -31,8 +31,7 @@ SECTIONS {
     *(.text.init) 
   } >RAM
 
-  . = 0xA00;
-  .trap_vector : {
+  .trap_vector 0xA00 : {
     KEEP(*(.trap_vector))
   } >RAM
 
