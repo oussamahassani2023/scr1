@@ -148,13 +148,13 @@ breakbreakTest passed
 
 Они совпадают с заданными значениями Reset Vector и Trap Vector.
 
-![Рис. 2 — копирование результатов в `results` и проверка адресов `_start` и `trap_vector` в дизассемблере](images/02_dump_addresses.jpg)
+![Рис. 2 — копирование результатов в `results` и проверка адресов `_start` и `trap_vector` в дизассемблере](https://github.com/oussamahassani2023/scr1/blob/lab_scr1_sim/images/02_dump_addresses.jpg?raw=true)
 
 *Рис. 2 — адреса `_start = 0x400` и `trap_vector = 0xA00` в файле `results/sbreak.dump`.*
 
 Запуск в режиме формирования волновых форм и трейс-логов (`make run_verilator_wf TARGETS=riscv_isa TRACE=1`) также завершился успешно: `1/1 tests passed`.
 
-![Рис. 3 — результат запуска в режиме `run_verilator_wf` с `TRACE=1`](images/03_run_verilator_wf_pass.jpg)
+![Рис. 3 — результат запуска в режиме `run_verilator_wf` с `TRACE=1`](https://github.com/oussamahassani2023/scr1/blob/lab_scr1_sim/images/03_run_verilator_wf_pass.jpg?raw=true)
 
 *Рис. 3 — запуск с формированием волновых форм и трейс-логов (каталог сборки `verilator_wf_..._TRACE_1`): тест пройден.*
 
