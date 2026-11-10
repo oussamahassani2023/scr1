@@ -1,0 +1,37 @@
+riscv64-unknown-elf-objcopy -O verilog /home/pc/scr1_lab3/build/verilator_wf_AHB_MAX_imc_IPIC_1_TCM_1_VIRQ_1_TRACE_1/sll.elf /home/pc/scr1_lab3/build/verilator_wf_AHB_MAX_imc_IPIC_1_TCM_1_VIRQ_1_TRACE_1/sll.hex
+printf "Simulation performed on $(verilator -version) \n" ;\
+[0;34m---Test:                          sll.hex[0m
+[0 ns] Detected command: SLL | PC = 0x000002a4 | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x000002b4 | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x000002c4 | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x00000348 | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x00000360 | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x0000037c | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x00000398 | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x000003b4 | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x000003cc | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x00000404 | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x00000440 | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x00000464 | instr = 0x00209133
+[0 ns] Detected command: SLL | PC = 0x00000484 | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x00000484 | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x000004c0 | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x000004c0 | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x00000500 | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x00000500 | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x0000053c | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x0000053c | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x0000055c | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x0000055c | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x0000057c | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x0000057c | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x0000061c | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x0000061c | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x0000063c | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x0000063c | instr = 0x002091b3
+[0 ns] Detected command: SLL | PC = 0x00000668 | instr = 0x00009133
+[0 ns] Detected command: SLL | PC = 0x00000678 | instr = 0x000010b3
+[0;32mTest passed[0m
+# Summary: 1/1 tests passed
+Simulation performed on Verilator 5.052 2026-09-05 rev vUNKNOWN-built20261027-983a06a 
+                         sll.hex		OK	  PASS 

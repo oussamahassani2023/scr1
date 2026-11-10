@@ -347,6 +347,15 @@ scr1_top_ahb i_top (
     .dmem_hrdata        (dmem_hrdata    ),
     .dmem_hresp         (dmem_hresp     )
 );
+    scr1_tb_log_cmd i_tb_log_cmd (
+        .clk          (i_top.i_imem_ahb.clk),
+        .rst_n        (i_top.i_imem_ahb.rst_n),
+        .imem_req     (i_top.i_imem_ahb.imem_req),
+        .imem_req_ack (i_top.i_imem_ahb.imem_req_ack),
+        .imem_addr    (i_top.i_imem_ahb.imem_addr),
+        .imem_resp    (i_top.i_imem_ahb.imem_resp),
+        .imem_rdata   (i_top.i_imem_ahb.imem_rdata)
+    );
 
 //-------------------------------------------------------------------------------
 // Memory instance
@@ -391,3 +400,84 @@ scr1_memory_tb_ahb #(
 
 endmodule : scr1_top_tb_ahb
 
+// ---------------------------------------------------------------------------
+// Lab 3 (SCR1 pipeline analysis) - variant 10: command SLL, debug info = PC
+// NON-SYNTHESIZABLE verification monitor ($display only).
+//
+// Watches the instruction-memory interface (scr1_imem_ahb):
+//   * request accepted  (imem_req && imem_req_ack)  -> push imem_addr to a FIFO
+//   * response valid    (imem_resp != NOTRDY)       -> pop the oldest address,
+//                                                      decode imem_rdata
+//   * word is SLL       -> print the PC of that instruction
+//
+// Why a FIFO: the bridge is pipelined (AHB address phase, then data phase), so
+// when the data comes back imem_addr already belongs to a later request.
+//
+// SLL (R-type): funct7=0000000 | rs2 | rs1 | funct3=001 | rd | opcode=0110011
+// ---------------------------------------------------------------------------
+
+// ===== 1) PASTE this module at the END of src/tb/scr1_top_tb_ahb.sv
+// =====    (after the final "endmodule"; that file is already in ahb_tb.files)
+
+module scr1_tb_log_cmd (
+    input logic        clk,
+    input logic        rst_n,
+    input logic        imem_req,
+    input logic        imem_req_ack,
+    input logic [31:0] imem_addr,
+    input logic [1:0]  imem_resp,    // 2'b00 not ready, 2'b01 OK, 2'b10 error
+    input logic [31:0] imem_rdata
+);
+
+    logic [31:0] addr_q [0:7];       // addresses of outstanding fetches
+    logic [2:0]  wr_ptr;
+    logic [2:0]  rd_ptr;
+
+    // SLL: opcode OP (0110011), funct3 = 001, funct7 = 0000000
+    // (slli has opcode 0010011, so it is NOT matched)
+    function automatic logic is_sll(input logic [31:0] instr);
+        return (instr[6:0]   == 7'b0110011) &&
+               (instr[14:12] == 3'b001)     &&
+               (instr[31:25] == 7'b0000000);
+    endfunction
+
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (~rst_n) begin
+            wr_ptr <= 3'd0;
+            rd_ptr <= 3'd0;
+        end else begin
+            // address phase accepted -> remember the address
+            if (imem_req && imem_req_ack) begin
+                addr_q[wr_ptr] <= imem_addr;
+                wr_ptr         <= wr_ptr + 3'd1;
+            end
+
+            // data phase finished -> decode the returned word
+            if (imem_resp != 2'b00) begin
+                if (imem_resp == 2'b01 && is_sll(imem_rdata)) begin
+                    $display("[%0t] Detected command: SLL | PC = 0x%08h | instr = 0x%08h",
+                             $time, addr_q[rd_ptr], imem_rdata);
+                end
+                rd_ptr <= rd_ptr + 3'd1;
+            end
+        end
+    end
+
+endmodule
+
+
+// ===== 2) PASTE this instance INSIDE module scr1_top_tb_ahb, right after the
+// =====    "scr1_top_ahb i_top ( ... );" instance (before the memory instance).
+// =====    Remove the /* */ marks.
+
+/*
+    scr1_tb_log_cmd i_tb_log_cmd (
+        .clk          (i_top.i_imem_ahb.clk),
+        .rst_n        (i_top.i_imem_ahb.rst_n),
+        .imem_req     (i_top.i_imem_ahb.imem_req),
+        .imem_req_ack (i_top.i_imem_ahb.imem_req_ack),
+        .imem_addr    (i_top.i_imem_ahb.imem_addr),
+        .imem_resp    (i_top.i_imem_ahb.imem_resp),
+        .imem_rdata   (i_top.i_imem_ahb.imem_rdata)
+    );
+*/
